@@ -58,7 +58,7 @@
                   <el-avatar v-else :size="44" :src="require('@/assets/images/userdefault.jpg')"></el-avatar>
                 </el-col>
                 <el-col :span="22">
-                  <div class="status">Hoàng ơi, Bạn đang nghĩ gì thế?</div>
+                  <div class="status">{{authUser?.data?.name}} ơi, Bạn đang nghĩ gì thế?</div>
                 </el-col>
               </el-row>
             </div>

@@ -17,6 +17,7 @@ import ListSuggestView from "@/views/Friends/ListSuggestView";
 import ListGroupJoinedView from "@/views/Groups/ListGroupJoinedView";
 import ChangePasswordView from "@/views/ChanggePasswordView";
 import DetailPostView from "../views/DetailPostView";
+import ChatRoomView from "../views/Chat/ChatRoomView";
 
 Vue.use(VueRouter)
 
@@ -86,6 +87,11 @@ const routes = [
     component: DetailGroupView,
   },
 
+  {
+    path: '/chat/',
+    name: 'ChatRoomView',
+    component: ChatRoomView,
+  },
   {
     path: '/friends/',
     name: 'FriendView',

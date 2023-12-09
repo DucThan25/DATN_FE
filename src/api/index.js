@@ -438,6 +438,27 @@ export default {
             method: 'get',
             url: `notifies/read/${id}`
         })
+    },
+
+    listChatRoom() {
+        return apiAxios({
+            method: 'get',
+            url: 'chat/rooms'
+        })
+    },
+
+    ChatRoomMessage(roomId) {
+        return apiAxios({
+            method: 'get',
+            url: `chat/room/${roomId}/messages`
+        })
+    },
+    newChatRoom(roomId,params) {
+        return apiAxios({
+            method: 'post',
+            url: `chat/room/${roomId}/message`,
+            params: params
+        })
     }
 
 }

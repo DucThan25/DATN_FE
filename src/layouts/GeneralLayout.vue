@@ -17,7 +17,11 @@
                     <input v-model="userSearch" type="text" placeholder="Nhập tên để tìm kiếm 2" v-debounce="500" @change="getListUser()" @focus="openAutocomplete()">
                     <i class="el-icon-search"></i>
                     <ul class="autocomplete-results" ref="autocomplete">
-                      <div class="btn__close"><span class="close__search" @click="offAutocomplete"><i class="el-icon-close"></i></span></div>
+                      <div class="btn__close">
+                        <span class="close__search" @click="offAutocomplete">
+                          <i class="el-icon-close"></i>
+                        </span>
+                      </div>
                       <li v-for="(user, index) in users" :key="index" @click="detaiUser(user)">
                         <el-avatar v-if="user.avatar" :size="40" :src="user?.avatar"></el-avatar>
                         <el-avatar v-else :size="40" :src="require('@/assets/images/userdefault.jpg')"></el-avatar>
@@ -58,9 +62,7 @@
                         <b-icon-play-btn font-scale="1.5"></b-icon-play-btn>
                       </router-link>
                     </span>
-                    
                   </div>
-                  
                 </div>
               </el-col>
               <el-col :span="4">
@@ -97,6 +99,11 @@
                       </el-dropdown-item>
                     </el-dropdown-menu>
                   </el-dropdown>
+                  <span class="icon">
+                      <router-link :to="{name: 'ChatRoomView'}">
+                        <i class="el-icon-s-grid"></i>
+                      </router-link>
+                    </span>
                   <!-- messager -->
                   <el-dropdown trigger="click">
                     <span class="el-dropdown-link">
