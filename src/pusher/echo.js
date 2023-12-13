@@ -10,7 +10,13 @@ export const echo = new Echo({
     encrypted: true,
     //authHost: 'http://127.0.0.1:8000',
     authEndpoint: 'http://localhost:8000/broadcasting/auth',
-    // forceTLS: true,
+    forceTLS: true,
+    auth: {
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem('access_token')}`,
+            Accept: 'application/json',
+        }
+    }
     
     
 });

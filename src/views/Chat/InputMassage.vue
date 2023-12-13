@@ -1,14 +1,16 @@
 <template>
-	<div class="relative h-10 m-1">
-		<div class="grid grid-cols-6"
-			style="border-top: 1px solid #e6e6e6;">
-			<input type="text"
+	<div class="input-message">
+		<div
+			>
+			<input 
+				class="input-text"
+				type="text"
 				v-model="message"
 				@keyup.enter="sendMessage()"
-				placeholder="New Message"
+				placeholder=" Aa"
 				 />
-			<button @click="sendMessage()">
-				Send
+			<button class="button" @click="sendMessage()">
+				<i class="el-icon-s-promotion"></i>
 			</button>
 		</div>
 	</div>
@@ -46,3 +48,22 @@
 		}
 	}
 </script>
+<style>
+	/* .input-message
+	{
+		position: fixed;
+		bottom: 0px;
+		background-color: blue;
+	} */
+	.input-text
+	{
+		margin-left: 100px;
+		border-radius: 15px;
+		width: 710px;
+		
+	}
+	.button
+	{
+		margin-left:20px ;
+	}
+</style>

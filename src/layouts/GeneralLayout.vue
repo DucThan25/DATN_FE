@@ -101,7 +101,8 @@
                   </el-dropdown>
                   <span class="icon">
                       <router-link :to="{name: 'ChatRoomView'}">
-                        <i class="el-icon-s-grid"></i>
+                        <!-- <i class="el-icon-chat-line-round"></i> -->
+                        <b-icon-menu-up></b-icon-menu-up>
                       </router-link>
                     </span>
                   <!-- messager -->
@@ -518,6 +519,7 @@ export default {
       }).then(() => {
         api.logout().then(()=> {
           this.updateAccessToken('');
+          //localStorage.removeItem("access_token");
           this.updateLoginStatus(false);
           this.updateAuthUser({})
           this.$router.push({ name: "Login" });

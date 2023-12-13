@@ -24,13 +24,16 @@
       <el-col :span="14">
         <div class="grid-content">
           
-          <MessageContainer :messages="messages"/>
-          <InputMassage :room="currentRoom" v-on:messageSent="getMessages()"/>
+          <MessageContainer style="padding-bottom: 70px;" :messages="messages"/>
+          <div style="padding: 10px; background-color: #ffffff; position: fixed; bottom: 0px;">
+            <InputMassage :room="currentRoom" v-on:messageSent="getMessages()"/>
+          </div>
+         
         </div>
       </el-col>
       <el-col :span="5" class="nav__right">
         <div>
-          dsad
+          <h5>Người truy cập trong phòng</h5>
         </div>
       </el-col>
       <el-col :span="5">
@@ -83,12 +86,22 @@
     methods: {
       connect(){
           if(this.currentRoom.id){
-              //let vm = this;
+              let vm = this;
               this.getMessages();
               echo.private('chat.'+this.currentRoom.id)
-                .listen('.message.new',e=>{
-                    this.getMessages();
-                    console.log(e);
+                .listen('NewChatMessageRoom',e=>{
+                    vm.getMessages();
+                });
+
+              echo.join('chat.' + this.currentRoom.id)
+                .here((users) => {
+                    console.log(users.length + ' user(s) in the room');
+                })
+                .joining((user) => {
+                    console.log(user.name + ' joined the chat room');
+                })
+                .leaving((user) => {
+                    console.log(user.name + ' leave the chat room');
                 });
           }
       },
@@ -168,8 +181,20 @@
     }
     .nav__right {
       position: fixed;
-      background-color: brown;
+      background-color: #ffffff;
+      width: 20%;
+      text-align: left;
+      padding: 20px;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+      min-height: 93.8vh;
       right: 0;
+
+      .title {
+  
+        h5 {
+          font-weight: bold;
+        }
+      }
     }
     .create--group {
       margin: 10px 0 20px 0;

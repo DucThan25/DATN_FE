@@ -124,6 +124,7 @@ export default {
             .then((response) => {
               if (response) {
                 this.updateAccessToken(_.get(response, "data.access_token"));
+                localStorage.setItem("access_token", _.get(response, "data.access_token"));
                 this.updateLoginStatus(true);
                 this.getAuthUser();
               }
