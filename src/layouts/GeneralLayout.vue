@@ -106,30 +106,15 @@
                       </router-link>
                     </span>
                   <!-- messager -->
-                  <el-dropdown trigger="click">
-                    <span class="el-dropdown-link">
-                       <span class="icon">
-                         <!-- <i class="el-icon-chat-round"></i> -->
-                         <b-icon-messenger></b-icon-messenger>
-                       </span>
+                  
+                    <span class="icon">
+                      <router-link :to="{name: 'ChatPrivateView'}">
+                        <b-icon-messenger></b-icon-messenger>
+                      </router-link>
                     </span>
-                    <el-dropdown-menu slot="dropdown">
-                      <el-dropdown-item>
-                        <router-link :to="{name: 'FeedGroupView'}">
-                          <div class="text-black text-decoration-none">
-                            <b-icon-people-fill></b-icon-people-fill> Nhóm
-                          </div>
-                        </router-link>
-                      </el-dropdown-item>
-                      <el-dropdown-item>
-                        <router-link :to="{name: 'FriendView'}">
-                          <div class="text-black text-decoration-none">
-                            <b-icon-person-check-fill></b-icon-person-check-fill> Bạn bè
-                          </div>
-                        </router-link>
-                      </el-dropdown-item>
-                    </el-dropdown-menu>
-                  </el-dropdown>
+                  
+                    
+                  
                   <!-- thông báo -->
                     <span class="el-dropdown-link">
                       <span @click="openListNotifies()" class="icon notify">

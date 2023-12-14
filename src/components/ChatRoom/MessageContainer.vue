@@ -9,7 +9,7 @@
 </template>
 
 <script>
-	import ItemMessage from "@/views/Chat/ItemMessage.vue"
+	import ItemMessage from "@/components/ChatRoom/ItemMessage.vue"
 	export default{
 		components: { ItemMessage },
 		props:['messages']

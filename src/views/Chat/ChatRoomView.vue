@@ -48,9 +48,9 @@
   import {ROLE} from "@/utils/constants";
   import api from "@/api";
   import _ from "lodash";
-  import InputMassage from "@/views/Chat/InputMassage.vue";
-  import MessageContainer from "./MessageContainer.vue";
-  import chatRoomSelection from "@/views/Chat/ChatRoomSelection.vue";
+  import InputMassage from "@/components/ChatRoom/InputMassage.vue";
+  import MessageContainer from "@/components/ChatRoom/MessageContainer.vue";
+  import chatRoomSelection from "@/components/ChatRoom/ChatRoomSelection.vue";
   import { echo } from '@/pusher/echo';
   
 

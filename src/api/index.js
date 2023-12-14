@@ -459,6 +459,51 @@ export default {
             url: `chat/room/${roomId}/message`,
             params: params
         })
-    }
+    },
 
+    getChatUser(){
+        return apiAxios({
+            method: 'get',
+            url: 'chat/get-chats'
+        })
+    },
+    createChat(data){
+        return apiAxios({
+            method: 'post' ,
+            url:'chat/create-chat',
+            data:data
+        })
+    },
+    getChatByID(chat_id){
+        return apiAxios({
+            method: 'get',
+            url: `chat/get-chat-by-id/${chat_id}`
+        })
+    },
+    searchUser(data){
+        return apiAxios({
+            method: 'post',
+            url: 'chat/search-user',
+            data: data,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+    },
+    sendTextMessage(data){
+        return apiAxios({
+            method: 'post',
+            url: 'chat/send-text-message',
+            data: data,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+    },
+    messageStatus(message){
+        return apiAxios({
+            method: 'get',
+            url: `chat/message-status/${message}`
+        })
+    },
 }
