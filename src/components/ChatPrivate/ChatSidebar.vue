@@ -25,9 +25,9 @@
             <span v-for="participant in chat.participants" :key="participant.id">
                 <span v-if="authUser?.data?.id != participant.id" >
                   <div class='avatar__comment'>
-                           <el-avatar v-if="participant?.avatar" :size="40" :src="participant?.avatar"></el-avatar>
-                           <el-avatar v-else :size="40" :src="require('@/assets/images/userdefault.jpg')"></el-avatar>
-                        </div>
+                    <el-avatar v-if="participant?.avatar" :size="40" :src="participant?.avatar"></el-avatar>
+                    <el-avatar v-else :size="40" :src="require('@/assets/images/userdefault.jpg')"></el-avatar>
+                  </div>
                   {{ participant.name }}
                 </span>
            </span>
@@ -41,6 +41,7 @@
 import axios from 'axios';
 import { mapState} from "vuex";
 import api from "@/api";
+import { echo } from '@/pusher/echo';
 export default {
   computed: {
 			...mapState("auth", ["authUser"]),
@@ -57,17 +58,17 @@ export default {
 		}
 	},
   methods:{
-    // to start open a chat in ChatBox.vue
+    // để bắt đầu mở cuộc trò chuyện trong ChatBox.vue
    OpentChat(chat_id){
-        // disconnect the current chat channel
-        //await window.Echo.leave('chat.'+this.chat_id)
+        // ngắt kết nối kênh trò chuyện hiện tại
+        echo.leave('chat.'+this.chat_id)
 
-        //open the new chat
+        //mở cuộc trò chuyện mới
         this.chat_id = chat_id
         this.$emit("renderChat", chat_id);
     },
    
-    // to search users by email
+    // để tìm kiếm người dùng bằng email
    searchUsers() {
       this.isSendingForm = true;
       let data = {email:this.searchEmail}
@@ -89,8 +90,40 @@ export default {
         .then((response) => {
           console.log(response.data.chats)
           this.chats = response.data.chats
+          this.startWebSocket()
       });
     },
+    async startWebSocket(){
+     console.log('startWebSocket',this.chat_id)
+     echo.join('chat.'+this.chat_id)
+     .here(users => {
+        this.users = users
+     })
+     .joining(user => {
+        this.users.push(user)
+     })
+     .leaving(user => {
+        this.users = this.users.filter(u => (u.id !== user.id));
+     }).listen('ChatMessageSent', (e) => {
+        // for  listening to ChatMessageSent event from the server
+        this.messages.push(e.message)
+        this.scrollToLastMessage();
+        if (this.$store.state.id != e.message.sender.id){
+           let url ='http://127.0.0.1:8000/api/chat/message-status/'+e.message.id
+              axios
+           .get(url,
+              { headers: { 
+                       'Content-Type': 'application/json',
+                       'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+              }},
+           )
+           
+        }
+     }).listen('ChatMessageStatus', (e) => {
+        // listening to ChatMessageStatus event from the server
+        this.messages.find(o => o.id ==e.message.id ).data.status =  e.message.data.status
+     });
+  }  ,
 
 
   // to start a chat with  user

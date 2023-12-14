@@ -10,8 +10,11 @@
                        <strong>
                           <span>{{ participant.name }}</span>	
                        </strong>
-                       <div  class="small"><i class="bi bi-circle-fill" :class="users.find(o =>o.id == participant.id)?' chat-online':' chat-offline'"></i>{{ users.find(o =>o.id == participant.id)? ' Online':' Offline' }}</div>
-                    </div>	
+                           <div  class="small">
+                              <b-icon-circle-fill :class="users.find(o =>o.id == participant.id)?' chat-online':' chat-offline'"></b-icon-circle-fill>
+                              {{ users.find(o =>o.id == participant.id)? ' Online':' Offline' }}
+                           </div>
+                     </div>	
                  </div>
                  </div>
               </div>
@@ -47,6 +50,7 @@ import axios from 'axios'
 import moment from 'moment'
 import { mapState} from "vuex";
 import api from "@/api";
+import { echo } from '@/pusher/echo';
 export default {
    computed: {
          ...mapState("auth", ["authUser"]),
@@ -97,8 +101,8 @@ export default {
        console.log(response.data)
        this.messages = response.data.messages.data
      this.chat = response.data.chat
-   //   window.Echo.leave('chat.'+this.chat_id)
-   //   this.startWebSocket()
+     echo.leave('chat.'+this.chat_id)
+     this.startWebSocket()
      });
    },
 
@@ -130,37 +134,38 @@ export default {
    },
   
   //to subscribe to the chat websocket channel
-//   async startWebSocket(){
-//      console.log('startWebSocket',this.chat_id)
-//      window.Echo.join('chat.'+this.chat_id)
-//      .here(users => {
-//         this.users = users
-//      })
-//      .joining(user => {
-//         this.users.push(user)
-//      })
-//      .leaving(user => {
-//         this.users = this.users.filter(u => (u.id !== user.id));
-//      }).listen('ChatMessageSent', (e) => {
-//         // for  listening to ChatMessageSent event from the server
-//         this.messages.push(e.message)
-//         this.scrollToLastMessage();
-//         if (this.$store.state.id != e.message.sender.id){
-//            let url =import.meta.env.VITE_BACKEND_URL+'/chat/message-status/'+e.message.id
-//               axios
-//            .get(url,
-//               { headers: { 
-//                        'Content-Type': 'application/json',
-//                        'Authorization': 'Bearer ' + this.$store.state.token,
-//               }},
-//            )
+  async startWebSocket(){
+     console.log('startWebSocket',this.chat_id)
+     echo.join('chat.'+this.chat_id)
+     .here(users => {
+        this.users = users
+     })
+     .joining(user => {
+        this.users.push(user)
+     })
+     .leaving(user => {
+        this.users = this.users.filter(u => (u.id !== user.id));
+     })
+     .listen('ChatMessageSent', (e) => {
+        // for  listening to ChatMessageSent event from the server
+        this.messages.push(e.message)
+        this.scrollToLastMessage();
+        if (this.$store.state.id != e.message.sender.id){
+           let url ='http://127.0.0.1:8000/api/chat/message-status/'+e.message.id
+              axios
+           .get(url,
+              { headers: { 
+                       'Content-Type': 'application/json',
+                       'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+              }},
+           )
            
-//         }
-//      }).listen('ChatMessageStatus', (e) => {
-//         // listening to ChatMessageStatus event from the server
-//         this.messages.find(o => o.id ==e.message.id ).data.status =  e.message.data.status
-//      });
-//   }  
+        }
+     }).listen('ChatMessageStatus', (e) => {
+        // listening to ChatMessageStatus event from the server
+        this.messages.find(o => o.id ==e.message.id ).data.status =  e.message.data.status
+     });
+  }  
   },
   watch: {
       // call the method if the chat_id changes in chat.vue

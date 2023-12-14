@@ -2,7 +2,7 @@ import moment from 'moment'
 import {VALIDATE_EMAIL_REGEX} from "./constants";
 
 export const postingTime = (date) => {
-    return moment(date).lang('vi').fromNow();
+    return moment(date).locale('vi').fromNow();
 }
 
 export const dateFormat = (date) => {
