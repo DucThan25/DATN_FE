@@ -1,5 +1,5 @@
 <template>
-  <main class="container min-h-content mb-3 mt-5">
+  <main class="container min-h-content mb-3 mt-3">
       <div class="card chat-card">
         <div class="row g-0">
           <ChatSidebar  @renderChat="renderChat" />
