@@ -5,7 +5,11 @@
 			<el-avatar v-else :size="40" :src="require('@/assets/images/userdefault.jpg')"></el-avatar>
 			
 		</div>
-		<el-tag class="message-right" type="success">{{message.message}}</el-tag> 
+		<div class="message-right">
+			{{message.message}} 
+			<div class="text-muted small text-nowrap mt-2">{{ moment(message.created_at).format("DD-MM-yy,   h:m a") }}</div>
+			
+		</div> 
 	</div>
 	<div v-else  class="content-right">
 		<div class='avatar__comment'>
@@ -13,17 +17,24 @@
 			<el-avatar v-else :size="40" :src="require('@/assets/images/userdefault.jpg')"></el-avatar>
 			<span class="user-name-hover">{{ message?.user?.name }}</span>
 		</div>
-		<el-tag class="message-left" type="danger">{{message.message}}</el-tag> 
+		<div class="message-left">
+			{{message.message}}
+			<div class="text-muted small text-nowrap mt-2">{{ moment(message.created_at).format("DD-MM-yy,   h:m a") }}</div>
+		</div> 
 	</div>
 </template>
 
 <script>
 	import { mapState} from "vuex";
+	import moment from 'moment'
 	export default{
 		props:['message'],
 		computed: {
 			...mapState("auth", ["authUser"]),
-		}
+		},
+		created: function () {
+			this.moment = moment;
+		},
 	}
 	
 </script>
@@ -39,11 +50,17 @@
 	{
 		margin-top: 5px;
 		margin-left: 10px;
+		background-color: #88f5a1;
+		padding: 5px 20px 5px 20px;
+		border-radius: 5px;
 	}
 	.message-right
 	{
 		margin-top: 5px;
 		margin-right: 10px;
+		background-color: rgb(143, 240, 240);
+		padding: 5px 20px 5px 20px;
+		border-radius: 5px;
 	}
 	.avatar__comment{	
 		position: relative;

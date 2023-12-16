@@ -7,7 +7,6 @@
             <div class="grid-content box__intro">
               <div class="box__intro__introduce">
                 <img src="../assets/images/logoheader.png" alt="">
-                <h2>Share giúp bạn kết nối và chia sẻ với mọi người trong cuộc sống của bạn.</h2>
               </div>
               <div class="form-auth">
                 <h3>Thay đổi mật khẩu - Lần đầu đăng nhập</h3>

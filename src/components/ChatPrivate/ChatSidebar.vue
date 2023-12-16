@@ -35,9 +35,10 @@
         </a>
       </el-tab-pane>
       <el-tab-pane label="Cộng đồng">
-        <a v-for="chatRoom in chatRooms" :key="chatRoom.id"  class="list-group-item list-group-item-action   " >
+        <a v-for="chatRoom in chatRooms" @click="OpentRoom(chatRoom.id)" :key="chatRoom.id"  class="list-group-item list-group-item-action   " >
           <el-menu class="d-flex align-items-start">
               <el-menu-item class="flex-grow-1 ml-3 fw-bold align ">
+                {{ chatRoom.id }}
                 {{ chatRoom.name }}
               </el-menu-item>
           </el-menu>
@@ -79,7 +80,11 @@ export default {
 			chats:[],
       users:[],
       searchEmail:'',
+
       chatRooms:[],
+      room:'',
+      currentRoom:[],
+      messages:[],
 		}
 	},
   methods:{
@@ -137,16 +142,34 @@ export default {
         },
 
     // chat room
+
+    OpentRoom(room){
+        // ngắt kết nối kênh trò chuyện hiện tại
+        // echo.leave('chat.'+this.chat_id)
+        this.currentRoom = room;
+        this.getMessages(this.currentRoom);
+        //mở cuộc trò chuyện mới
+        // this.chat_id = chat_id
+        // this.$emit("renderChat", chat_id);
+    },
     getRooms(){
         api.listChatRoom().then(reponse => {
           this.chatRooms = reponse.data;
-          this.setRoom(reponse.data[0]);
         })
         .catch(error=>{
           console.log(error);
         })
       },
-      
+
+    getMessages(room){
+      api.ChatRoomMessage(room)
+      .then(response=>{
+        this.messages = response.data;
+      })
+      .catch(error=>{
+        console.log(error);
+      })
+    }
     },
   mounted(){
     this.getData();

@@ -36,7 +36,6 @@
                   </router-link>
                 </div>
               </div>
-              <el-button type="primary" class="btn__login" @click="handleLoginFacebook()">Đăng nhập bằng Facebook</el-button>
               <el-button type="danger" class="btn__login" @click="handleLoginGoogle()">Đăng nhập bằng Google</el-button>
             </div>
           </div>
@@ -245,18 +244,16 @@ export default {
       }
     },
 
-    handleLoginFacebook()
-    {
-      window.location.href = this.serverUrl +'auth/facebook/redirect'
-    },
+  
     handleLoginGoogle()
     {
-      window.location.href = this.serverUrl +'auth/google/redirect'
+      window.location.href ='http://127.0.0.1:8000/api/auth/google/redirect'
     },
-    handleFacebookCallback() {
+    handleGoogleCallback() {
       const urlParams = new URLSearchParams(window.location.search);
       if (urlParams.has('token')) {
         const token = urlParams.get('token');
+        localStorage.setItem("access_token", token);
         this.updateAccessToken(token);
         this.updateLoginStatus(true);
         this.getAuthUser();
@@ -291,7 +288,7 @@ export default {
     }
   },
   created() {
-    this.handleFacebookCallback();
+    this.handleGoogleCallback();
   },
   watch: {
     'login.email': {
