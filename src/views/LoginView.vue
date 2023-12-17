@@ -5,9 +5,8 @@
         <el-col :span="8" class="mx-auto">
           <div class="box__container">
             <div class="grid-content box__intro">
-              <div class="box__intro__introduce">
+              <div class="box__intro__introduce" style="margin-top: 30px;">
                 <img src="../assets/images/logoheader.png" alt="">
-                <!-- <h2>Share giúp bạn kết nối và chia sẻ với mọi người trong cuộc sống của bạn.</h2> -->
               </div>
               <div class="form-auth">
                 <div class="form-group mb-2">
@@ -25,18 +24,22 @@
                 <div class="form-group mb-3">
                   <button class="btn btn-success" @click="handleLoginBasic()">Đăng nhập</button>
                 </div>
+                <div style="display: flex;">
                 <div class="more--option--base">
                   <router-link to="">
                     <p @click="openDialogRegister()">Đăng ký tài khoản</p>
                   </router-link>
                 </div>
-                <div class="more--option--base">
+                <div class="more--option--base" style="text-align: right;">
                   <router-link to="">
-                    <p @click="openDialogForgot()">Quên mật khẩu?</p>
+                    <h6 @click="openDialogForgot()">Quên mật khẩu?</h6>
                   </router-link>
                 </div>
               </div>
-              <el-button type="danger" class="btn__login" @click="handleLoginGoogle()">Đăng nhập bằng Google</el-button>
+              <b-button variant="warning" @click="handleLoginGoogle()"><b-icon-google></b-icon-google> Đăng nhập bằng Google</b-button>
+              <b-button variant="primary" style="margin: 15px 0 50px 0;"><b-icon-facebook></b-icon-facebook> Đăng nhập bằng Facebook</b-button>
+            </div>
+              
             </div>
           </div>
         </el-col>
@@ -57,6 +60,9 @@
       <button class="btn btn-secondary" @click="registerDialog = false">Huỷ</button>
       <button class="btn btn-primary btn__register" @click="handleRegister()">Đăng ký</button>
     </el-dialog>
+
+
+
     <!-- Forgot Dialog -->
     <el-dialog width="30%" title="Quên mật khẩu" :visible.sync="forgotDialog">
       <div class="form-group mb-2">
@@ -233,7 +239,7 @@ export default {
           });
           this.resetForm()
           this.resetError()
-          this.forgotDialogDialog = false
+          this.forgotDialog = false
         })
         .catch(error => {
           let errors = _.get(error, 'response.data.errors', {})
@@ -386,11 +392,11 @@ body {
   padding: 20px 0 28px;
   width: 396px;
 }
-.btn__login {
-  margin: 0 25px !important;
-  width: 230px;
-  text-align: center;
-}
+// .btn__login {
+//   margin: 0 25px !important;
+//   width: 230px;
+//   text-align: center;
+// }
 .btn__register {
   float: right;
 }

@@ -64,7 +64,7 @@ export default {
     forgot(data) {
         return apiAxios({
             method: 'post',
-            url: 'auth/forgot-password',
+            url: 'auth/forgot',
             data: data
         })
       },
