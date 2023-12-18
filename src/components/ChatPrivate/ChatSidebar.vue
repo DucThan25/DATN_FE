@@ -222,10 +222,11 @@ export default {
 
 .chat-message-left .message-box{
     
-    background-color: #88f5a1;
+    background-color:rgb(201, 204, 211);
 }
 .chat-message-right .message-box{
-    background-color: rgb(143, 240, 240);
+    background-color: rgb(5, 126, 255);
+    color:rgb(255, 255, 255);
 }
 .border__buttom__nav {
     width: 95%;

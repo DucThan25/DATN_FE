@@ -1,4 +1,5 @@
 <template>
+  <div>
     <el-row style="margin-top: 5px;">
       <el-col :span="5">
         <div class="grid-content ">
@@ -17,7 +18,7 @@
               v-on:roomChanged="setRoom($event)"
               />
         </div>
-        <div class="create--group"  v-if="authUser?.data?.role  == ROLE['ADMIN']">
+        <div @click="openCreateRoom()" class="create--group"  v-if="authUser?.data?.role  == ROLE['ADMIN']">
           <div class="btn--create--group"><i class="el-icon-plus"></i>Tạo kênh mới</div>
         </div>
       </el-col>
@@ -42,6 +43,18 @@
         </div>
       </el-col>
     </el-row>
+
+    <el-dialog width="30%" title="Tạo kênh chat" :visible.sync="createRoom">
+      <div class="form-group mb-2">
+        <label for="exampleInputName1"> Tên kênh chat <span class="text-danger">*</span></label>
+        <input v-model="create.name" type="text" class="form-control" placeholder="Nhập tên kênh chat">
+        <i class="d-block form-text text-danger" v-if="errorCreate.name">{{errorCreate.name}}</i>
+       
+      </div>
+      <button class="btn btn-secondary" @click="createRoom = false">Huỷ</button>
+      <button class="btn btn-primary btn__register" @click="handleCreateRoom()">Tiếp tục</button>
+    </el-dialog>
+  </div>
   </template>
   <script>
   import {mapState} from "vuex";
@@ -73,6 +86,14 @@
         currentRoom:[],
         messages:[],
         ROLE: ROLE,
+
+        createRoom:false,
+        create:{
+          name:''
+        },
+        errorCreate: {
+          name: '',
+        },
       }
     },
     watch:{
@@ -130,7 +151,49 @@
         .catch(error=>{
           console.log(error);
         })
+      },
+
+      openCreateRoom() {
+        this.createRoom = true
+      },
+      resetForm() {
+        this.create.name = '';
+      },
+      resetError() {
+        this.errorCreate.name = '';
+      },
+      isValidCreate() {
+        let error = false;
+        this.errorCreate.name = "";
+        if (this.create.name.length === 0) {
+          error = true;
+          this.errorCreate.name = "Tên không được để trống";
+        }
+        return !error;
+      },
+      handleCreateRoom() {
+      if (this.isValidCreate()) {
+        let data = {
+          name: this.create.name,
+        }
+      api.createRoomChat(data). then(() => {
+          this.$message({
+            message: 'Phòng chat đã được tạo thành công',
+            type: 'success'
+          });
+          this.resetForm()
+          this.resetError()
+          this.createRoom = false
+        })
+        .catch(error => {
+          let errors = _.get(error, 'response.data.errors', {})
+          if (Object.keys(errors).length > 0) {
+            this.errorCreate.name = _.get(errors, 'name[0]', "");
+          }
+        });
+        
       }
+    },
     },
     created(){
       this.getRooms();

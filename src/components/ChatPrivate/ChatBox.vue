@@ -30,7 +30,7 @@
                </div>
                <div class="flex-shrink-1 message-box rounded py-2 px-3 mx-2">
                   {{  message.message }} 
-                           <div class="text-muted small text-nowrap mt-2">{{ moment(message.created_at).format("DD-MM-yy,   h:m a") }} - {{  message.data.status }}</div>
+                           <div style=" opacity: 0.4;" class="text-muted small text-nowrap mt-2">{{ moment(message.created_at).format("DD-MM-yy,   h:m a") }} - {{  message.data.status }}</div>
                </div>
             </div>
          </div>
@@ -95,6 +95,7 @@ export default {
                this.chat = response.data.chat
                echo.leave('chat.'+this.chat_id)
                this.startWebSocket()
+               this.scrollToLastMessage()
          });
       },
 

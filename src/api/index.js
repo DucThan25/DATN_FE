@@ -460,7 +460,13 @@ export default {
             params: params
         })
     },
-
+    createRoomChat(data){
+        return apiAxios({
+            method: 'post' ,
+            url:'chat/create-room',
+            data:data
+        })
+    },
     getChatUser(){
         return apiAxios({
             method: 'get',

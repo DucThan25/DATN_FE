@@ -22,7 +22,10 @@
                   <i id="emailHelp" class="d-block form-text text-danger" v-if="errorLogin.password">{{errorLogin.password}}</i>
                 </div>
                 <div class="form-group mb-3">
-                  <button class="btn btn-success" @click="handleLoginBasic()">Đăng nhập</button>
+                  <button class="btn btn-success" @click="handleLoginBasic()" :disabled="isLoading">
+                    <span v-if="!isLoading">Đăng nhập</span>
+                    <span v-else>Loading...</span>
+                  </button>
                 </div>
                 <div style="display: flex;">
                 <div class="more--option--base">
@@ -58,7 +61,10 @@
         <i id="emailHelp" class="d-block form-text text-danger" v-if="errorRegister.email">{{errorRegister.email}}</i>
       </div>
       <button class="btn btn-secondary" @click="registerDialog = false">Huỷ</button>
-      <button class="btn btn-primary btn__register" @click="handleRegister()">Đăng ký</button>
+      <button class="btn btn-primary btn__register" @click="handleRegister()" :disabled="isLoading">
+        <span v-if="!isLoading">Đăng ký</span>
+        <span v-else>Loading...</span>
+      </button>
     </el-dialog>
 
 
@@ -85,6 +91,7 @@ export default {
   name: 'LoginView',
   data() {
     return {
+      isLoading: false,
       CHECK_CHANGE_PASS,
       registerDialog: false,
       forgotDialog:false,
@@ -125,8 +132,10 @@ export default {
           email: this.login.email,
           password: this.login.password,
         }
+        this.isLoading = true;
         api.login(data)
             .then((response) => {
+              this.isLoading = false;
               if (response) {
                 this.updateAccessToken(_.get(response, "data.access_token"));
                 localStorage.setItem("access_token", _.get(response, "data.access_token"));
@@ -210,7 +219,9 @@ export default {
           email: this.register.email,
           name: this.register.name,
         }
+        this.isLoading = true;
         api.register(data). then(() => {
+          this.isLoading = false;
           this.$message({
             message: 'Đã đăng ký! vui lòng vào email để xác thực tài khoản!',
             type: 'success'

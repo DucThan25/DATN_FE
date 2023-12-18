@@ -30,16 +30,18 @@
               </router-link>
             </span>
           </div>
-          <el-menu v-if="myGroups.length > 0" class="nav__menu nav__group nav__list-group" active-text-color="#000000">
-            <el-menu-item class="list__nav" v-for="(myGroup,index) in myGroups" :key="index">
-              <router-link :to="{name: 'GroupDetail', params: {id: myGroup?.id}}" class="router-link-group">
-                <el-image
-                    :src="myGroup.avatar"
-                    class="nav__avatar__group"></el-image>
-                <span>{{myGroup.name}}</span>
-              </router-link>
-            </el-menu-item>
-          </el-menu>
+          <div class="area__read">
+            <el-menu v-if="myGroups.length > 0" class="nav__menu nav__group nav__list-group" active-text-color="#000000">
+              <el-menu-item class="list__nav" v-for="(myGroup,index) in myGroups" :key="index">
+                <router-link :to="{name: 'GroupDetail', params: {id: myGroup?.id}}" class="router-link-group">
+                  <el-image
+                      :src="myGroup.avatar"
+                      class="nav__avatar__group"></el-image>
+                  <span>{{myGroup.name}}</span>
+                </router-link>
+              </el-menu-item>
+            </el-menu>
+          </div>
         </div>
       </div>
     </div>
@@ -167,5 +169,14 @@ export default {
   outline: 0;
   color: #409EFF;
   background-color: #ffffff;
+}
+// .area__read::-webkit-scrollbar {
+//   display: none; /* ẩn thanh cuộn */
+// }
+.area__read {
+  max-height: 310px;
+  overflow: auto;
+  // -ms-overflow-style: none;  /* IE and Edge */
+  // scrollbar-width: none;  /* Firefox */
 }
 </style>

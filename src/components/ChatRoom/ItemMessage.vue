@@ -7,7 +7,7 @@
 		</div>
 		<div class="message-right">
 			{{message.message}} 
-			<div class="text-muted small text-nowrap mt-2">{{ moment(message.created_at).format("DD-MM-yy,   h:m a") }}</div>
+			<div style=" opacity: 0.4;" class="text-muted small text-nowrap mt-2">{{ moment(message.created_at).format("DD-MM-yy,   h:m a") }}</div>
 			
 		</div> 
 	</div>
@@ -19,7 +19,7 @@
 		</div>
 		<div class="message-left">
 			{{message.message}}
-			<div class="text-muted small text-nowrap mt-2">{{ moment(message.created_at).format("DD-MM-yy,   h:m a") }}</div>
+			<div style=" opacity: 0.4;" class="text-muted small text-nowrap mt-2">{{ moment(message.created_at).format("DD-MM-yy,   h:m a") }}</div>
 		</div> 
 	</div>
 </template>
@@ -50,7 +50,7 @@
 	{
 		margin-top: 5px;
 		margin-left: 10px;
-		background-color: #88f5a1;
+		background-color:rgb(201, 204, 211);
 		padding: 5px 20px 5px 20px;
 		border-radius: 5px;
 	}
@@ -58,7 +58,8 @@
 	{
 		margin-top: 5px;
 		margin-right: 10px;
-		background-color: rgb(143, 240, 240);
+		color: #ffffff;
+		background-color: rgb(5, 126, 255);
 		padding: 5px 20px 5px 20px;
 		border-radius: 5px;
 	}

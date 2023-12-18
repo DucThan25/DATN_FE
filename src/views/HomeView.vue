@@ -1,9 +1,11 @@
 <template>
   <div class="home__container">
     <label for="">
-      <span class="label">
+      <span class="label" title="Chat room">
         <span class="icon">
-          <i class="el-icon-edit-outline"></i>
+          <router-link :to="{name: 'ChatRoomView'}">
+            <i class="el-icon-edit-outline" style="color: crimson;" ></i>
+          </router-link>
         </span>
       </span>
     </label>
@@ -73,7 +75,7 @@
 
               <div class="border__buttom__nav"></div>
               
-              <div class="list__group__description">
+              <!-- <div class="list__group__description">
                 <h6>Danh sách bạn bè của bạn</h6>
                 <span class="view__all">
                    <router-link :to="{name: 'ListFriendView'}">
@@ -89,16 +91,28 @@
                     <span>{{friend?.name}}</span>
                   </router-link>
                 </el-menu-item>
-              </el-menu>
-
-              <div class="border__buttom__nav"></div>
+              </el-menu> -->
 
               <div class="list__group__description">
                 <h6>Nhóm đã tham gia</h6>
-                <router-link :to="{name: 'ListGroupJoinedView'}">
+                <!-- <router-link :to="{name: 'ListGroupJoinedView'}">
                   <span class="view__all"><a href="">Xem tất cả</a></span>
-                </router-link>
+                </router-link> -->
               </div>
+              <div class="area__read1">
+              <el-menu v-if="groupJoined" class="nav__menu nav__group nav__list-group" active-text-color="#000000">
+                <el-menu-item v-for="(item, index) in groupJoined" :key="index" class="list__nav">
+                  <router-link :to="{name: 'GroupDetail', params: {id: item?.group_id}}">
+                  <el-image
+                      :src="item?.group?.avatar"
+                      class="nav__avatar__group"></el-image>
+                  <span>{{item?.group?.name}}</span>
+                  </router-link>
+                </el-menu-item>
+              </el-menu>
+              </div>
+
+              <div class="border__buttom__nav"></div>
             </div>
           </el-menu>
         </div>
@@ -117,6 +131,18 @@
                 </el-col>
                 <el-col :span="22">
                   <div class="status">{{authUser?.data?.name}} ơi, Bạn đang nghĩ gì thế?</div>
+                </el-col>
+              </el-row>
+              <div class="border__status__nav"></div>
+              <el-row>
+                <el-col :span="8" style="text-align: center;">
+                  <b-icon-camera-video-fill style="color:red ;"></b-icon-camera-video-fill> Video trực tiếp
+                </el-col>
+                <el-col :span="8" style="text-align: center;">
+                  <b-icon-images style="color:green ;"></b-icon-images> Ảnh/Video
+                </el-col>
+                <el-col :span="8" style="text-align: center;">
+                  <b-icon-emoji-smile style="color:yellow ;"></b-icon-emoji-smile> Cảm xúc
                 </el-col>
               </el-row>
             </div>
@@ -162,7 +188,7 @@
         </div>
 
           <div class="border__buttom__nav"></div>
-          <div class="list__group__description">
+          <!-- <div class="list__group__description">
             <h6>Nhóm đã tham gia home</h6>
             <router-link :to="{name: 'ListGroupJoinedView'}">
               <span class="view__all"><a href="">Xem tất cả</a></span>
@@ -177,17 +203,35 @@
               <span>{{item?.group?.name}}</span>
               </router-link>
             </el-menu-item>
-          </el-menu>
+          </el-menu> -->
+          <div class="list__group__description">
+            <h6>Người liên hệ</h6>
+          </div>
+          <div class="area__read2">
+            <el-menu v-if="chats" class="nav__menu nav__group nav__list-group" active-text-color="#000000">
+                <el-menu-item v-for="(chat, index) in chats"   :key="index" index="1" class="list__nav">
+                <router-link :to="{name: 'ChatPrivateView'}" @click="OpentChat()" v-for="participant in chat.participants" :key="participant.id">
+                        <span v-if="authUser?.data?.id != participant.id" >
+                          <div class='avatar__comment'>
+                            <el-avatar v-if="participant?.avatar" :size="40" :src="participant?.avatar"></el-avatar>
+                            <el-avatar v-else :size="40" :src="require('@/assets/images/userdefault.jpg')"></el-avatar>
+                          </div>
+                          {{ participant.name }}
+                        </span>
+                  </router-link>
+                </el-menu-item>
+            </el-menu>
+          </div>
         </div>
         <div class="border__buttom__nav"></div>
-        
-        <div class="list__group">
+        <!-- <div class="list__group">
           <div class="list__group__description">
             <h6>Nhóm của bạn</h6>
             <router-link :to="{name: 'ListMyGroupView'}">
               <span class="view__all"><a href="">Xem tất cả</a></span>
             </router-link>
           </div>
+          <div class="area__read1">
           <el-menu v-if="myGroups" class="nav__menu nav__group nav__list-group" active-text-color="#000000">
               <el-menu-item v-for="(myGroup, index) in myGroups" :key="index" index="1" class="list__nav">
                 <router-link :to="{name: 'GroupDetail', params: {id: myGroup.id}}">
@@ -199,6 +243,7 @@
               </el-menu-item>
           </el-menu>
         </div>
+        </div> -->
       </el-col>
       <el-col :span="5">
         <div class="grid-content"><p> </p></div>
@@ -297,9 +342,11 @@ import DialogPostDetail from "@/components/DialogPostDetail";
 import api from "@/api";
 import _ from 'lodash'
 import {mapMutations, mapState} from "vuex";
+import { echo } from '@/pusher/echo';
 export default {
   name: 'HomeVue',
   components: {PostComponent, DialogPostDetail},
+  emits: ["renderChat"],
   data () {
     return {
       q: '',
@@ -322,6 +369,10 @@ export default {
       postId: '',
       checkMoreOption: false,
       checkDeleteImageUpdate: false,
+
+      chat_id:null,
+			chats:[],
+      users:[],
     }
   },
   computed: {
@@ -333,12 +384,23 @@ export default {
     this.getListMyGroup(this.authUser?.data?.id)
     this.getGroupJoined()
     this.getPostHome()
+    this.getData()
   },
   methods:{
     ...mapMutations("auth", ["updateLoginStatus", "updateAccessToken", "updateAuthUser"]),
     removeImagePreview() {
       this.imageUrl = ''
       this.image = ''
+    },
+    OpentChat(){
+       console.log(this.chat.id)
+    },
+    getData(){
+      api.getChatUser()
+        .then((response) => {
+          console.log(response.data.chats)
+          this.chats = response.data.chats
+      });
     },
     removeImageUpdatePreview() {
       this.imageUrl = ''
@@ -752,6 +814,11 @@ export default {
   margin: 10px auto 20px auto;
   border-bottom: 1px solid #ccc !important;
 }
+.border__status__nav {
+  width: 100%;
+  margin: 5px auto 10px auto;
+  border-bottom: 1px solid #ccc !important;
+}
 .list__group {
   text-align: left;
   h6 {
@@ -901,15 +968,30 @@ h6 {
   display: block;
   z-index: 1000;
 }
-.area__read::-webkit-scrollbar {
-      display: none; /* ẩn thanh cuộn */
-    }
+// .area__read::-webkit-scrollbar {
+//   display: none; /* ẩn thanh cuộn */
+// }
 .area__read {
-      max-height: 90px;
-      overflow: auto;
-      // -ms-overflow-style: none;  /* IE and Edge */
-      // scrollbar-width: none;  /* Firefox */
-    }
+  max-height: 90px;
+  overflow: auto;
+  // -ms-overflow-style: none;  /* IE and Edge */
+  // scrollbar-width: none;  /* Firefox */
+}
+// .area__read1::-webkit-scrollbar {
+//   display: none; /* ẩn thanh cuộn */
+// }
+.area__read1 {
+  max-height: 310px;
+  overflow: auto;
+  // -ms-overflow-style: none;  /* IE and Edge */
+  // scrollbar-width: none;  /* Firefox */
+}
+.area__read2 {
+  max-height: 460px;
+  overflow: auto;
+  // -ms-overflow-style: none;  /* IE and Edge */
+  // scrollbar-width: none;  /* Firefox */
+}
   .label{
     position: fixed;
     right: 15px;

@@ -99,22 +99,19 @@
                       </el-dropdown-item>
                     </el-dropdown-menu>
                   </el-dropdown>
-                  <span class="icon">
+                  <!-- <span class="icon">
                       <router-link :to="{name: 'ChatRoomView'}">
-                        <!-- <i class="el-icon-chat-line-round"></i> -->
+                        
                         <b-icon-menu-up></b-icon-menu-up>
                       </router-link>
-                    </span>
+                    </span> -->
                   <!-- messager -->
                   
                     <span class="icon">
                       <router-link :to="{name: 'ChatPrivateView'}">
-                        <b-icon-messenger></b-icon-messenger>
+                        <b-icon-messenger style="color: black;"></b-icon-messenger>
                       </router-link>
                     </span>
-                  
-                    
-                  
                   <!-- thông báo -->
                     <span class="el-dropdown-link">
                       <span @click="openListNotifies()" class="icon notify">

@@ -181,11 +181,11 @@ export default {
       border-bottom: 1px solid #ccc;
       margin-top: 20px;
     }
-    .area__read::-webkit-scrollbar {
-      display: none; /* ẩn thanh cuộn */
-    }
+    // .area__read::-webkit-scrollbar {
+    //   //display: none; /* ẩn thanh cuộn */
+    // }
     .area__read {
-      max-height: 550px;
+      max-height: 460px;
       overflow: auto;
       // -ms-overflow-style: none;  /* IE and Edge */
       // scrollbar-width: none;  /* Firefox */
