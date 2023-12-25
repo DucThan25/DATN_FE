@@ -5,12 +5,12 @@
       <el-menu id="my--group" class="nav__menu nav__group nav__list-group" active-text-color="#000000">
         <el-menu-item class="list__nav">
           <router-link :to="{name: 'FeedGroupView'}">
-            <span class="icon__my--group"><b-icon-grid1x2-fill></b-icon-grid1x2-fill></span><span>Bảng feed của bạn grouplayout</span>
+            <span class="icon__my--group"><b-icon-grid1x2-fill></b-icon-grid1x2-fill></span><span>Bảng feed của bạn</span>
           </router-link>
         </el-menu-item>
         <el-menu-item class="list__nav">
           <router-link :to="{name: 'ListGroupJoinedView'}">
-            <span class="icon__my--group"><b-icon-people-fill></b-icon-people-fill></span><span>Nhóm đã tham gia grlu</span>
+            <span class="icon__my--group"><fa :icon="['fas', 'people-roof']" /></span><span>Nhóm đã tham gia</span>
           </router-link>
         </el-menu-item>
       </el-menu>

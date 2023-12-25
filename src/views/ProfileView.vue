@@ -47,9 +47,9 @@
             <div class="intro-detail mt-3">
               <p v-if="user?.introduce">{{user?.introduce}}</p>
               <!-- <p v-if="user?.date"><b>Ngày sinh: </b> {{dateFomat(user?.date)}}</p> -->
-              <p v-if="user?.gender"><b><i class="el-icon-female"></i> </b> {{user?.gender_text}}</p>
-              <p v-if="user?.address"><b><i class="el-icon-location-information"></i> Đến từ </b> {{user?.address}}</p>
-              <p v-if="user?.email"><b><i class="el-icon-message"></i> </b> {{user?.email}}</p>
+              <p v-if="user?.gender"><b><fa :icon="['fas', 'venus-mars']" /> Giới tính: </b> {{user?.gender_text}}</p>
+              <p v-if="user?.address"><b><fa :icon="['fas', 'location-dot']" /> Đến từ </b> {{user?.address}}</p>
+              <p v-if="user?.email"><b><fa :icon="['fas', 'envelope-open-text']" /> Email: </b> {{user?.email}}</p>
             </div>
           </div>
           <div class="profile--content__posts">
@@ -199,8 +199,8 @@
       </div>
       <div class="my-2"></div>
       <label for="">Ảnh</label>
-      <div>
-        <div v-if='!imageUrl' class="image__post" @click="addImagePost">Thêm ảnh</div>
+      <div style="border: solid 1px rgb(223, 221, 221); text-align: center;">
+        <div v-if='!imageUrl' class="image__post" @click="addImagePost"><fa :icon="['fas', 'cloud-arrow-up']" style="font-size: 20px; padding: 20px 0 20px 0;" /></div>
         <input ref="input__image" class="input__image" type='file' @change="changeImagePost()">
       </div>
       <div v-if="this.errorImage !== '' " class="error">

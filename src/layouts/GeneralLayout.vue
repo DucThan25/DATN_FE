@@ -48,18 +48,17 @@
                   <div class="grid-content bg-purple-light nav__header d-flex p-1">
                     <span>
                       <router-link :to="{name: 'Home'}">
-                        <b-icon-house-door font-scale="1.5"></b-icon-house-door>
+                        <fa :icon="['fas', 'house']"  style="font-size: 24px;"/>
                       </router-link>
                     </span>
                     <span>
                       <router-link :to="{name: 'FriendView'}">
-                        <b-icon-people font-scale="1.5"></b-icon-people>
+                        <b-icon-people-fill  font-scale="1.8" style="color: rgb(0, 128, 255);"></b-icon-people-fill>
                       </router-link>
                     </span>
                     <span>
                       <router-link :to="{name: 'ListGroupJoinedView'}">
-                        <!-- <i class="el-icon-video-play" style="font-size: 27px;"></i> -->
-                        <b-icon-play-btn font-scale="1.5"></b-icon-play-btn>
+                        <fa :icon="['fas', 'list-check']" style="font-size: 24px;" />
                       </router-link>
                     </span>
                   </div>

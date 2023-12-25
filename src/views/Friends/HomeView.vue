@@ -29,7 +29,7 @@
     </div>
   <div class="list--request__container">
     <div class="list--request__box">
-      <h5>Lời mời kết bạn2: </h5>
+      <h5>Lời mời kết bạn: </h5>
       <div class="list--request" v-if="listRequestAdd.length > 0">
         <div class="list--request__item" v-for="(request, index) in listRequestAdd" :key="index">
           <el-image v-if="request.avatar"

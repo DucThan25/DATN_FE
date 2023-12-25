@@ -37,27 +37,32 @@
       <el-row>
         <div class="">
           <span>
-            <b-icon-hand-thumbs-up-fill class="text-primary mr-1"></b-icon-hand-thumbs-up-fill>{{postDetail?.likes_count}}
+            <fa :icon="['far', 'thumbs-up']" class="text-primary mr-1" />{{postDetail?.likes_count}}
           </span>
           <span class="count__comment">
-            {{postDetail?.comments?.length}} bình luận4
+            {{postDetail?.comments?.length}} bình luận
           </span>
         </div>
       </el-row>
       <el-row class="action">
-        <el-col :span="12">
+        <el-col :span="8">
           <div v-if="postDetail?.likes?.length > 0" class="action__detail text-center" @click="eventLikePost()">
-            <b-icon-hand-thumbs-up-fill class="text-primary"></b-icon-hand-thumbs-up-fill> Đã thích
+            <fa :icon="['far', 'thumbs-up']" class="text-primary mr-1" /> Đã thích
           </div>
           <div v-else class="action__detail text-center" @click="eventLikePost()">
-            <b-icon-hand-thumbs-up></b-icon-hand-thumbs-up> Thích
+            <fa :icon="['far', 'thumbs-up']" /> Thích
           </div>
         </el-col>
-        <el-col :span="12">
+        <el-col :span="8">
           <div class="action__detail text-center">
-            <b-icon-chat-square></b-icon-chat-square> Bình luận5
+            <fa :icon="['far', 'comment']"/> Bình luận
           </div>
         </el-col>
+        <el-col :span="8">
+        <div class="action__detail text-center" @click="eventSharePost()">
+          <fa :icon="['fas', 'share']" /> Chia sẻ
+        </div>
+      </el-col>
       </el-row>
 
       <CommentComponent v-for="(itemComment, index) in postDetail?.comments" 

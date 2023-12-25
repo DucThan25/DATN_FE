@@ -6,7 +6,7 @@
           <img v-if="user?.cover_image" :src="user?.cover_image" alt="">
           <img v-else :src="require('@/assets/images/userdefault.jpg')" alt="">
           <div v-if="(user?.id) && authUser.data.id === user.id" class="p-2 btn-update-cover-image" @click="changeCoverImage">
-            <span><i class="el-icon-camera-solid"></i> Chỉnh sửa ảnh bìa1</span>
+            <span><i class="el-icon-camera-solid"></i> Chỉnh sửa ảnh bìa2</span>
             <input type="file" ref="changeCoverImage" class="input--hidden" @change="updateCoverImage()">
           </div>
         </div>

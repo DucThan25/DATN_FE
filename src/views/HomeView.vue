@@ -4,7 +4,8 @@
       <span class="label" title="Chat room">
         <span class="icon">
           <router-link :to="{name: 'ChatRoomView'}">
-            <i class="el-icon-edit-outline" style="color: crimson;" ></i>
+            <!-- <i class="el-icon-edit-outline" style="color: crimson;" ></i> -->
+            <fa :icon="['fas', 'pen-to-square']" style="color: crimson;"/>
           </router-link>
         </span>
       </span>
@@ -30,7 +31,8 @@
                 <el-menu-item index="1" class="list__nav">
                   <!-- <b-icon-people-fill></b-icon-people-fill> -->
                   <router-link :to="{name: 'FriendView'}">
-                    <b-icon-people-fill style="margin-left: 10px;" font-scale="1.3"></b-icon-people-fill>
+                    <!-- <b-icon-people-fill style="margin-left: 10px;" font-scale="1.3"></b-icon-people-fill> -->
+                    <fa :icon="['fas', 'user-group']" class="custom-icon"/>
                     <h6> Bạn bè</h6>
                   </router-link>
                 </el-menu-item>
@@ -39,7 +41,8 @@
                 <el-menu-item index="1" class="list__nav">
                  
                   <router-link :to="{name: 'ListGroupJoinedView'}">
-                    <b-icon-people-fill style="margin-left: 10px;" font-scale="1.3"></b-icon-people-fill>
+                    <fa :icon="['fas', 'users-line']" class="custom-icon"/>
+                    <!-- <b-icon-people-fill style="margin-left: 10px;" font-scale="1.3"></b-icon-people-fill> -->
                     <h6>Nhóm</h6>
                   </router-link>
                 </el-menu-item>
@@ -136,13 +139,14 @@
               <div class="border__status__nav"></div>
               <el-row>
                 <el-col :span="8" style="text-align: center;">
-                  <b-icon-camera-video-fill style="color:red ;"></b-icon-camera-video-fill> Video trực tiếp
+                  <fa :icon="['fas', 'video']" style="color:red; font-size: 20px;" /> Video trực tiếp
                 </el-col>
                 <el-col :span="8" style="text-align: center;">
-                  <b-icon-images style="color:green ;"></b-icon-images> Ảnh/Video
+                  
+                  <fa :icon="['fas', 'images']" style="color:green; font-size: 23px;" /> Ảnh/Video
                 </el-col>
                 <el-col :span="8" style="text-align: center;">
-                  <b-icon-emoji-smile style="color:yellow ;"></b-icon-emoji-smile> Cảm xúc
+                  <fa :icon="['far', 'face-smile']" style="color:rgba(211, 150, 8, 0.822); font-size: 24px;" /> Cảm xúc
                 </el-col>
               </el-row>
             </div>
@@ -273,8 +277,8 @@
       </div>
       <div class="my-2"></div>
       <label for="">Ảnh</label>
-      <div>
-        <div v-if='!imageUrl' class="image__post" @click="addImagePost"><b-icon-file-earmark-image-fill></b-icon-file-earmark-image-fill></div>
+      <div style="border: solid 1px rgb(223, 221, 221); text-align: center;">
+        <div v-if='!imageUrl' class="image__post" @click="addImagePost"><fa :icon="['fas', 'cloud-arrow-up']" style="font-size: 20px; padding: 20px 0 20px 0;" /></div>
         <input ref="input__image" class="input__image" type='file' @change="changeImagePost()">
       </div>
       <div v-if="this.errorImage !== '' " class="error">
@@ -992,6 +996,10 @@ h6 {
   // -ms-overflow-style: none;  /* IE and Edge */
   // scrollbar-width: none;  /* Firefox */
 }
+.custom-icon {
+      font-size: 26px; 
+      margin-left: 10px;
+    }
   .label{
     position: fixed;
     right: 15px;

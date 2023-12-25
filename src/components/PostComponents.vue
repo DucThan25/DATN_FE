@@ -46,10 +46,10 @@
           <el-button class="btn__more" icon="el-icon-more" circle></el-button>
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item v-if="post?.user_id === authUser?.data?.id">
-                <span @click="eventUpdatePost()">Sửa2</span>
+                <span @click="eventUpdatePost()"><fa :icon="['fas', 'square-pen']" /> Chỉnh sửa</span>
             </el-dropdown-item>
             <el-dropdown-item v-if="post?.user_id === authUser?.data?.id || authUser?.data?.role === ROlE['ADMIN'] || post?.checkCollaborator === true || post?.checkAdmin===true">
-                <span @click="eventDeletePost()">Xóa2</span>
+                <span @click="eventDeletePost()"> <fa :icon="['fas', 'trash-can']" /> Xóa</span>
             </el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
@@ -68,30 +68,30 @@
     <el-row>
       <div class="">
         <span>
-          <b-icon-hand-thumbs-up-fill class="text-primary mr-1"></b-icon-hand-thumbs-up-fill>{{post?.likes_count}}
+          <fa :icon="['far', 'thumbs-up']" class="text-primary mr-1" /> {{post?.likes_count}}
         </span>
         <span class="count__comment">
-          {{post?.comments?.length}} bình luận1
+          {{post?.comments?.length}} bình luận
         </span>
       </div>
     </el-row>
     <el-row class="action">
       <el-col :span="8">
         <div v-if="post?.likes?.length > 0" class="action__detail text-center" @click="eventLikePost()">
-          <b-icon-hand-thumbs-up-fill class="text-primary"></b-icon-hand-thumbs-up-fill> Đã thích
+          <fa :icon="['far', 'thumbs-up']" class="text-primary mr-1" /> Đã thích
         </div>
         <div v-else class="action__detail text-center" @click="eventLikePost()">
-          <b-icon-hand-thumbs-up></b-icon-hand-thumbs-up> Thích
+          <fa :icon="['far', 'thumbs-up']" /> Thích
         </div>
       </el-col>
       <el-col :span="8">
         <div class="action__detail text-center" @click="openDialogPostDetail()">
-          <b-icon-chat-square></b-icon-chat-square> Bình luận2
+          <fa :icon="['far', 'comment']"/> Bình luận
         </div>
       </el-col>
       <el-col :span="8">
         <div class="action__detail text-center" @click="eventSharePost()">
-          <b-icon-share-fill></b-icon-share-fill> Chia sẻ
+          <fa :icon="['fas', 'share']" /> Chia sẻ
         </div>
       </el-col>
     </el-row>

@@ -9,7 +9,7 @@
         </router-link>
         <div class="title">
           <small class="d-block">Bạn bè</small>
-          <h6>Lời mời kết bạn1</h6>
+          <h6>Lời mời kết bạn</h6>
         </div>
       </div>
       <div class="line"></div>

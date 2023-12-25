@@ -9,9 +9,9 @@
       <div class="content__comment" ref="content__comment">
         <div class="content__comment__box">
           <h6>{{itemComment?.user?.name}}</h6>
-          <p class="small"><small>{{itemComment?.id}}</small></p>
+          <!-- <p class="small"><small>{{itemComment?.id}}</small></p>
           <p class="small"><small>{{itemComment?.parent_id}}</small></p>
-          <p class="small"><small>{{itemComment?.user?.id}}</small></p>
+          <p class="small"><small>{{itemComment?.user?.id}}</small></p> -->
           <div class="content_cmt" v-if="!requestUpdateComment">{{itemComment?.content}}</div>
           <div v-else>
             <el-input
@@ -20,7 +20,7 @@
                 class="input__update__comment"
                 type="textarea"
                 :autosize="{ minRows: 1}"
-                placeholder="Bình luận3"
+                placeholder="Bình luận"
                 v-model="commentUpdate"
                 @keyup.native.enter="eventUpdateContentComment(itemComment)">
                 
@@ -39,8 +39,8 @@
         <el-dropdown trigger="click" v-if="checkMoreOption" >
           <span class="option__comment__icon"><i class="el-icon-more"></i></span>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item v-if="itemComment?.user_id === authUser?.data?.id"><span @click="eventUpdateComment()">Sửa1</span></el-dropdown-item>
-            <el-dropdown-item><span @click="eventDeleteComment(itemComment?.id)">Xoá1</span></el-dropdown-item>
+            <el-dropdown-item v-if="itemComment?.user_id === authUser?.data?.id"><span @click="eventUpdateComment()"><fa :icon="['fas', 'square-pen']" /> Chỉnh sửa</span></el-dropdown-item>
+            <el-dropdown-item><span @click="eventDeleteComment(itemComment?.id)"><fa :icon="['fas', 'trash-can']" /> Xoá</span></el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
       </div>

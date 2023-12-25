@@ -88,7 +88,7 @@
                         <el-avatar :size="44" :src="authUser?.data?.avatar"></el-avatar>
                       </el-col>
                       <el-col :span="22">
-                        <div class="status">Bạn viết gì đi1!!!</div>
+                        <div class="status">Bạn viết gì đi!</div>
                       </el-col>
                     </el-row>
                   </div>
@@ -262,8 +262,8 @@
       </div>
       <div class="my-2"></div>
       <label for="">Ảnh</label>
-      <div>
-        <div v-if='!imageUrl' class="image__post" @click="addImagePost">Thêm ảnh</div>
+      <div style="border: solid 1px rgb(223, 221, 221); text-align: center;">
+        <div v-if='!imageUrl' class="image__post" @click="addImagePost"><fa :icon="['fas', 'cloud-arrow-up']" style="font-size: 20px; padding: 20px 0 20px 0;" /></div>
         <input ref="input__image" class="input__image" type='file' @change="changeImagePost()">
       </div>
       <div v-if="this.errorImage !== '' " class="error">

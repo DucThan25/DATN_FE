@@ -9,7 +9,7 @@
         </router-link>
         <div class="title">
           <small class="d-block">Bạn bè</small>
-          <h4>Tất cả bạn bè1</h4>
+          <h4>Tất cả bạn bè</h4>
         </div>
       </div>
       <input class="input__search--friend"

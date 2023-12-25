@@ -2,6 +2,7 @@
   <div class="d-flex group--feed">
     <div class="group--content d-inline-block">
       <div class="preview__group">
+        <h6>Hoạt động gần đây</h6>
         <div class="box__status box__post mt-4 mb-2" v-for="(post, index) in listPost" :key = "index">
           <PostComponent @eventLikePost="eventLikePost($event)" @dataPostDetail="openDialogPostDetail($event)"  @postUpdate="editPost($event)" @postDelete="deletePost($event)" :post = post></PostComponent>
         </div>
